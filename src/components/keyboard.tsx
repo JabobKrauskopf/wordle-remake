@@ -14,9 +14,9 @@ export const Keyboard = ({ onEnter, onDelete, onInput }: KeyboardProps) => {
       } else if (e.code === "Backspace") {
         onDelete();
       } else {
-        const pressedKey = e.key.toUpperCase();
+        const pressedKey = e.key.toLowerCase();
 
-        if (pressedKey.length === 1 && pressedKey >= "A" && pressedKey <= "Z") {
+        if (pressedKey.length === 1 && pressedKey >= "a" && pressedKey <= "z") {
           onInput(pressedKey);
         }
       }

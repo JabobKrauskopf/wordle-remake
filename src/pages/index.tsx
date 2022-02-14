@@ -10,10 +10,9 @@ export const compareToResult = (
   comparisonLetters: string[]
 ) => {
   return letters.map((letter, i) => {
-    const lowerCaseLetter = letter.toLowerCase();
-    if (lowerCaseLetter == comparisonLetters[i]) {
+    if (letter == comparisonLetters[i]) {
       return "correct";
-    } else if (comparisonLetters.includes(lowerCaseLetter)) {
+    } else if (comparisonLetters.includes(letter)) {
       return "includes";
     } else {
       return "mismatch";
@@ -57,7 +56,7 @@ const App: NextPage = () => {
 
   const onEnter = () => {
     if (gameState == "unknown" && currentInput.length === maxWordLength) {
-      if (!wordList.includes(currentInput.toLowerCase())) {
+      if (!wordList.includes(currentInput)) {
         alert(`${currentInput} is not in the wordlist.`);
         return;
       }
@@ -68,7 +67,7 @@ const App: NextPage = () => {
         alert("You have lost.");
       }
     }
-    if (currentInput.toLowerCase() == solution) {
+    if (currentInput == solution) {
       setGameState("won");
       alert("You have won.");
     }
