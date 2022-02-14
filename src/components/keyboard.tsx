@@ -1,12 +1,64 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
+import { ArrowLeftIcon } from "@chakra-ui/icons";
 
-export interface KeyboardProps {
-  onEnter: any;
-  onDelete: any;
-  onInput: (value: string) => void;
+interface KeyProps {
+  value: string | React.ReactElement;
+  handler: (value: string) => void;
+  state?: "correct" | "included" | "mismatch";
 }
 
-export const Keyboard = ({ onEnter, onDelete, onInput }: KeyboardProps) => {
+const Key = ({ value, handler, state }: KeyProps) => {
+  const color =
+    state == "correct"
+      ? "#538d4e"
+      : state == "included"
+      ? "#b59f3b"
+      : state == "mismatch"
+      ? "#3a3a3c"
+      : "#818384";
+
+  return (
+    <Flex
+      height="58px"
+      marginX="3px"
+      paddingX="15px"
+      cursor="pointer"
+      textAlign="center"
+      justifyContent="center"
+      alignContent="center"
+      flexDirection="column"
+      backgroundColor={color}
+      fontWeight="bold"
+      fontSize="16px"
+      textTransform="uppercase"
+      borderRadius="4px"
+      onClick={() => {
+        handler(value as string);
+      }}
+    >
+      {value}
+    </Flex>
+  );
+};
+
+interface KeyboardProps {
+  onEnter: () => void;
+  onDelete: () => void;
+  onInput: (value: string) => void;
+  correctLetters: string[];
+  includedLetters: string[];
+  testedLetters: string[];
+}
+
+export const Keyboard = ({
+  onEnter,
+  onDelete,
+  onInput,
+  correctLetters,
+  includedLetters,
+  testedLetters,
+}: KeyboardProps) => {
   React.useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.code === "Enter") {
@@ -28,5 +80,65 @@ export const Keyboard = ({ onEnter, onDelete, onInput }: KeyboardProps) => {
       window.removeEventListener("keydown", listener);
     };
   }, [onDelete, onEnter, onInput]);
-  return <div></div>;
+
+  return (
+    <Flex flexDirection="column" alignItems="center">
+      <Flex marginBottom="6px">
+        {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"].map((key) => (
+          <Key
+            key={key}
+            value={key}
+            handler={onInput}
+            state={
+              correctLetters.includes(key)
+                ? "correct"
+                : includedLetters.includes(key)
+                ? "included"
+                : testedLetters.includes(key)
+                ? "mismatch"
+                : undefined
+            }
+          />
+        ))}
+      </Flex>
+      <Flex marginBottom="6px">
+        {["a", "s", "d", "f", "g", "h", "j", "k", "l"].map((key) => (
+          <Key
+            key={key}
+            value={key}
+            handler={onInput}
+            state={
+              correctLetters.includes(key)
+                ? "correct"
+                : includedLetters.includes(key)
+                ? "included"
+                : testedLetters.includes(key)
+                ? "mismatch"
+                : undefined
+            }
+          />
+        ))}
+      </Flex>
+      <Flex>
+        <Key value="enter" handler={onEnter} />
+        {["z", "x", "c", "v", "b", "n", "m"].map((key) => (
+          <Key
+            key={key}
+            value={key}
+            handler={onInput}
+            state={
+              correctLetters.includes(key)
+                ? "correct"
+                : includedLetters.includes(key)
+                ? "included"
+                : testedLetters.includes(key)
+                ? "mismatch"
+                : undefined
+            }
+          />
+        ))}
+        <Key value={<ArrowLeftIcon />} handler={onDelete} />
+      </Flex>
+    </Flex>
+  );
 };

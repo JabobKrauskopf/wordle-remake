@@ -84,7 +84,7 @@ export const WordleGrid = ({
   solution,
 }: WordleGridProps) => {
   return (
-    <Box>
+    <Box marginBottom="50px">
       {previousTries.map((value, i) => (
         <Row
           key={i}

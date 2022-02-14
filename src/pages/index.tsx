@@ -42,6 +42,18 @@ const App: NextPage = () => {
   );
   const [solution, _getNewSolution] = useSolutionGenerator();
 
+  const includedLetters = solution
+    .split("")
+    .filter((letter) =>
+      previousTries.some((element) => element.includes(letter))
+    );
+
+  const correctLetters = solution
+    .split("")
+    .filter((letter, i) =>
+      previousTries.some((element) => element.split("")[i] == letter)
+    );
+
   console.log(solution);
 
   const onInput = (value: string) => {
@@ -82,7 +94,14 @@ const App: NextPage = () => {
         maxTries={maxTries}
         solution={solution}
       />
-      <Keyboard onInput={onInput} onDelete={onDelete} onEnter={onEnter} />
+      <Keyboard
+        onInput={onInput}
+        onDelete={onDelete}
+        onEnter={onEnter}
+        includedLetters={includedLetters}
+        correctLetters={correctLetters}
+        testedLetters={previousTries.flatMap((value) => value.split(""))}
+      />
     </Flex>
   );
 };
