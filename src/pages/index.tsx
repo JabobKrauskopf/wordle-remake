@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { Keyboard } from "../components/keyboard";
 import { WordleGrid } from "../components/wordle-grid";
-import { wordList } from "../constants/word-list";
+import { solutions, wordList } from "../constants/word-list";
 
 export const compareToResult = (
   letters: string[],
@@ -22,11 +22,11 @@ export const compareToResult = (
 
 const useSolutionGenerator = (): [string, () => void] => {
   const [solution, setSolution] = useState(
-    wordList[Math.floor(Math.random() * wordList.length)]
+    solutions[Math.floor(Math.random() * solutions.length)]
   );
 
   const getNewSolution = () => {
-    setSolution(wordList[Math.floor(Math.random() * wordList.length)]);
+    setSolution(solutions[Math.floor(Math.random() * solutions.length)]);
   };
 
   return [solution, getNewSolution];
