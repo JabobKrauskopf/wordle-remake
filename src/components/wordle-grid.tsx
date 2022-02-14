@@ -8,7 +8,7 @@ interface CellProps {
 
 const Cell = ({ value, diff }: CellProps) => {
   const color =
-    diff === "correct" ? "green" : diff === "includes" ? "yellow" : "";
+    diff === "correct" ? "#538d4e" : diff === "includes" ? "#b59f3b" : "";
 
   return (
     <Flex
@@ -21,6 +21,7 @@ const Cell = ({ value, diff }: CellProps) => {
       alignContent="center"
       flexDirection="column"
       backgroundColor={color}
+      fontWeight="bold"
     >
       {value}
     </Flex>
