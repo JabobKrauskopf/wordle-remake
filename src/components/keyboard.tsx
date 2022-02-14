@@ -22,11 +22,11 @@ export const Keyboard = ({ onEnter, onDelete, onInput }: KeyboardProps) => {
       }
     };
 
-    window.addEventListener("keyup", listener);
+    window.addEventListener("keydown", listener);
 
     return () => {
-      window.removeEventListener("keyup", listener);
+      window.removeEventListener("keydown", listener);
     };
-  }, [onEnter, onDelete, onInput]);
+  }, [onDelete, onEnter, onInput]);
   return <div></div>;
 };

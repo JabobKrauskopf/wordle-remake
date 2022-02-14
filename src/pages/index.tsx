@@ -3,20 +3,34 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { Keyboard } from "../components/keyboard";
 import { WordleGrid } from "../components/wordle-grid";
+import { wordList } from "../constants/word-list";
 
 export const compareToResult = (
   letters: string[],
   comparisonLetters: string[]
 ) => {
   return letters.map((letter, i) => {
-    if (letter == comparisonLetters[i]) {
+    const lowerCaseLetter = letter.toLowerCase();
+    if (lowerCaseLetter == comparisonLetters[i]) {
       return "correct";
-    } else if (comparisonLetters.includes(letter)) {
+    } else if (comparisonLetters.includes(lowerCaseLetter)) {
       return "includes";
     } else {
       return "mismatch";
     }
   });
+};
+
+const useSolutionGenerator = (): [string, () => void] => {
+  const [solution, setSolution] = useState(
+    wordList[Math.floor(Math.random() * wordList.length)]
+  );
+
+  const getNewSolution = () => {
+    setSolution(wordList[Math.floor(Math.random() * wordList.length)]);
+  };
+
+  return [solution, getNewSolution];
 };
 
 const App: NextPage = () => {
@@ -27,8 +41,9 @@ const App: NextPage = () => {
   const [gameState, setGameState] = useState<"unknown" | "lost" | "won">(
     "unknown"
   );
+  const [solution, _getNewSolution] = useSolutionGenerator();
 
-  const testWord = "ROBIN";
+  console.log(solution);
 
   const onInput = (value: string) => {
     currentInput.length < maxWordLength &&
@@ -40,13 +55,17 @@ const App: NextPage = () => {
   };
 
   const onEnter = () => {
-    if (currentInput == testWord) {
+    if (currentInput.toLowerCase() == solution) {
       setGameState("won");
       alert("You have won.");
     } else if (
       gameState == "unknown" &&
       currentInput.length === maxWordLength
     ) {
+      if (!wordList.includes(currentInput.toLowerCase())) {
+        alert(`${currentInput} is not in the wordlist.`);
+        return;
+      }
       setPreviousTries([...previousTries, currentInput]);
       setCurrentInput("");
       if (previousTries.length === maxTries) {
@@ -63,7 +82,7 @@ const App: NextPage = () => {
         maxWordLength={maxWordLength}
         previousTries={previousTries}
         maxTries={maxTries}
-        solution={testWord}
+        solution={solution}
       />
       <Keyboard onInput={onInput} onDelete={onDelete} onEnter={onEnter} />
     </Flex>
