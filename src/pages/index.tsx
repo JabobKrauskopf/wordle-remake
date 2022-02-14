@@ -47,6 +47,7 @@ const App: NextPage = () => {
 
   const onInput = (value: string) => {
     currentInput.length < maxWordLength &&
+      gameState == "unknown" &&
       setCurrentInput(`${currentInput}${value}`);
   };
 
@@ -55,13 +56,7 @@ const App: NextPage = () => {
   };
 
   const onEnter = () => {
-    if (currentInput.toLowerCase() == solution) {
-      setGameState("won");
-      alert("You have won.");
-    } else if (
-      gameState == "unknown" &&
-      currentInput.length === maxWordLength
-    ) {
+    if (gameState == "unknown" && currentInput.length === maxWordLength) {
       if (!wordList.includes(currentInput.toLowerCase())) {
         alert(`${currentInput} is not in the wordlist.`);
         return;
@@ -72,6 +67,10 @@ const App: NextPage = () => {
         setGameState("lost");
         alert("You have lost.");
       }
+    }
+    if (currentInput.toLowerCase() == solution) {
+      setGameState("won");
+      alert("You have won.");
     }
   };
 

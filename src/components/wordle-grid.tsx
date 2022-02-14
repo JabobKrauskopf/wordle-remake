@@ -14,14 +14,15 @@ const Cell = ({ value, diff }: CellProps) => {
     <Flex
       borderWidth="2px"
       borderColor="#3a3a3c"
-      boxSize="50px"
-      marginX="5px"
+      boxSize="65px"
+      marginX="2px"
       textAlign="center"
       justifyContent="center"
       alignContent="center"
       flexDirection="column"
       backgroundColor={color}
       fontWeight="bold"
+      fontSize="32px"
     >
       {value}
     </Flex>
