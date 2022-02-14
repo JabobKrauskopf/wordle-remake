@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { compareToResult } from ".";
+import { compareToResult } from "../pages";
 
 interface CellProps {
   value?: string;

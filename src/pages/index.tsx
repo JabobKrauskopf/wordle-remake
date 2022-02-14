@@ -1,8 +1,8 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { Keyboard } from "./keyboard";
-import { WordleGrid } from "./wordle-grid";
+import { Keyboard } from "../components/keyboard";
+import { WordleGrid } from "../components/wordle-grid";
 
 export const compareToResult = (
   letters: string[],
@@ -22,7 +22,7 @@ export const compareToResult = (
 const App: NextPage = () => {
   const [currentInput, setCurrentInput] = useState("");
   const [maxWordLength, _] = useState(5);
-  const [maxTries, setMaxTires] = useState(6);
+  const [maxTries, setMaxTires] = useState(5);
   const [previousTries, setPreviousTries] = useState<string[]>([]);
   const [gameState, setGameState] = useState<"unknown" | "lost" | "won">(
     "unknown"
