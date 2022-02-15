@@ -11,12 +11,12 @@ interface KeyProps {
 const Key = ({ value, handler, state }: KeyProps) => {
   const color =
     state == "correct"
-      ? "#538d4e"
+      ? "green.500"
       : state == "included"
-      ? "#b59f3b"
+      ? "yellow.800"
       : state == "mismatch"
-      ? "#3a3a3c"
-      : "#818384";
+      ? "gray.700"
+      : "gray.500";
 
   return (
     <Flex
@@ -26,7 +26,6 @@ const Key = ({ value, handler, state }: KeyProps) => {
       cursor="pointer"
       textAlign="center"
       justifyContent="center"
-      alignContent="center"
       flexDirection="column"
       backgroundColor={color}
       fontWeight="bold"

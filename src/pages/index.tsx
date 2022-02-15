@@ -75,6 +75,7 @@ const App: NextPage = () => {
           status: "info",
           duration: 9000,
           isClosable: true,
+          position: "top",
         });
         return;
       }
@@ -88,6 +89,7 @@ const App: NextPage = () => {
         status: "success",
         duration: 9000,
         isClosable: true,
+        position: "top",
       });
       return;
     }
@@ -99,6 +101,7 @@ const App: NextPage = () => {
         status: "error",
         duration: 9000,
         isClosable: true,
+        position: "top",
       });
       return;
     }

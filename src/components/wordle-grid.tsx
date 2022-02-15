@@ -10,22 +10,21 @@ interface CellProps {
 const Cell = ({ value, diff, current }: CellProps) => {
   const color =
     diff === "correct"
-      ? "#538d4e"
+      ? "green.500"
       : diff === "includes"
-      ? "#b59f3b"
+      ? "yellow.800"
       : diff === "mismatch"
-      ? "#3a3a3c"
+      ? "gray.700"
       : undefined;
 
   return (
     <Flex
       borderWidth="2px"
-      borderColor={color ? color : current ? "#565758" : "#3a3a3c"}
+      borderColor={color ? color : current ? "gray.600" : "gray.700"}
       boxSize="60px"
       marginX="2px"
       textAlign="center"
       justifyContent="center"
-      alignContent="center"
       flexDirection="column"
       backgroundColor={color}
       fontWeight="bold"
