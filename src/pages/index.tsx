@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { Keyboard } from "../components/keyboard";
@@ -41,6 +41,7 @@ const App: NextPage = () => {
     "unknown"
   );
   const [solution, _getNewSolution] = useSolutionGenerator();
+  const toast = useToast();
 
   const includedLetters = solution
     .split("")
@@ -69,19 +70,37 @@ const App: NextPage = () => {
   const onEnter = () => {
     if (gameState == "unknown" && currentInput.length === maxWordLength) {
       if (!wordList.includes(currentInput)) {
-        alert(`${currentInput} is not in the wordlist.`);
+        toast({
+          title: `${currentInput.toUpperCase()} is not in the word list.`,
+          status: "info",
+          duration: 9000,
+          isClosable: true,
+        });
         return;
       }
       setPreviousTries([...previousTries, currentInput]);
       setCurrentInput("");
-      if (previousTries.length === maxTries) {
-        setGameState("lost");
-        alert("You have lost.");
-      }
     }
     if (currentInput == solution) {
       setGameState("won");
-      alert("You have won.");
+      toast({
+        title: "Congrats! You have won the game!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      return;
+    }
+    if (previousTries.length === maxTries) {
+      setGameState("lost");
+      toast({
+        title: "You have lost the game! :(",
+        description: `The solution was ${solution}`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+      return;
     }
   };
 
