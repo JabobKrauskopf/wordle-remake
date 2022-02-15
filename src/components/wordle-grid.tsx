@@ -4,10 +4,10 @@ import { compareToResult } from "../pages";
 interface CellProps {
   value?: string;
   diff?: "correct" | "includes" | "mismatch";
-  borderColor?: string;
+  current?: boolean;
 }
 
-const Cell = ({ value, diff, borderColor }: CellProps) => {
+const Cell = ({ value, diff, current }: CellProps) => {
   const color =
     diff === "correct"
       ? "#538d4e"
@@ -15,13 +15,13 @@ const Cell = ({ value, diff, borderColor }: CellProps) => {
       ? "#b59f3b"
       : diff === "mismatch"
       ? "#3a3a3c"
-      : "";
+      : undefined;
 
   return (
     <Flex
       borderWidth="2px"
-      borderColor={borderColor ?? "#3a3a3c"}
-      boxSize="65px"
+      borderColor={color ? color : current ? "#565758" : "#3a3a3c"}
+      boxSize="60px"
       marginX="2px"
       textAlign="center"
       justifyContent="center"
@@ -58,7 +58,7 @@ const Row = ({ value, maxWordLength, solution, current }: RowProps) => {
           key={i}
           value={value}
           diff={diff ? diff[i] : undefined}
-          borderColor={current ? "#565758" : undefined}
+          current={current}
         />
       ))}
       {Array.from(Array(maxWordLength - letters.length)).map((_, i) => (
