@@ -92,15 +92,15 @@ export const WordleGrid = ({
           solution={solution}
         />
       ))}
-      {maxTries - previousTries.length + 1 > 0 ? (
+      {maxTries - previousTries.length > 0 ? (
         <Row
           value={currentInput}
           maxWordLength={maxWordLength}
           current={true}
         />
       ) : undefined}
-      {maxTries - previousTries.length > 0
-        ? Array.from(Array(maxTries - previousTries.length)).map((_, i) => (
+      {maxTries - previousTries.length - 1 > 0
+        ? Array.from(Array(maxTries - previousTries.length - 1)).map((_, i) => (
             <Row key={i} value="" maxWordLength={maxWordLength} />
           ))
         : undefined}

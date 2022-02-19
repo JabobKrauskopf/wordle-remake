@@ -35,7 +35,7 @@ const useSolutionGenerator = (): [string, () => void] => {
 const App: NextPage = () => {
   const [currentInput, setCurrentInput] = useState("");
   const [maxWordLength, _] = useState(5);
-  const [maxTries, setMaxTires] = useState(5);
+  const [maxTries, setMaxTires] = useState(6);
   const [previousTries, setPreviousTries] = useState<string[]>([]);
   const [gameState, setGameState] = useState<"unknown" | "lost" | "won">(
     "unknown"
@@ -93,11 +93,14 @@ const App: NextPage = () => {
       });
       return;
     }
-    if (previousTries.length === maxTries) {
+    if (
+      previousTries.length + 1 === maxTries &&
+      currentInput.length === maxWordLength
+    ) {
       setGameState("lost");
       toast({
         title: "You have lost the game! :(",
-        description: `The solution was ${solution}`,
+        description: `The solution was ${solution.toUpperCase()}`,
         status: "error",
         duration: 9000,
         isClosable: true,
